@@ -6,18 +6,18 @@ if (isset($_POST['submit'])) {
   var_dump($_POST);
   var_dump($_SESSION);
   echo '</pre>';
-  $userid = $_SESSION['userid'];
+  $username = $_SESSION['username'];
   $imageurl = $_POST['imageUrl'];
   $caption = $_POST['memeCaption'];
-  $sql = 'INSERT INTO memes (userid, url, caption) VALUES (?,?,?);';
+  $sql = 'INSERT INTO memes (username, url, caption) VALUES (?,?,?);';
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
     die('stmt could not be prepared');
   }
-  mysqli_stmt_bind_param($stmt, "iss", $userid, $imageurl, $caption);
+  mysqli_stmt_bind_param($stmt, "sss", $username, $imageurl, $caption);
   mysqli_stmt_execute($stmt);
 }
-$sql = 'SELECT * FROM memes;';
+$sql = 'SELECT * FROM memes ORDER BY id DESC;';
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
   die('stmt could not be prepared');
@@ -45,8 +45,9 @@ $result = mysqli_stmt_get_result($stmt);
     <div class="card w-25" style="margin: 17px auto;color: black;">
       <img class="card-img-top" src="<?php echo $resultArray['url']?>" alt="Card image">
       <div class="card-body">
-        <h4 class="card-title">USER_ID: <?php echo $resultArray['userid'] ?></h4>
+        <h4 class="card-title">Posted by: <?php echo $resultArray['username'] ?></h4>
         <p class="card-text"><?php echo $resultArray['caption'] ?></p>
+        <a href="post.php?id=<?php echo $resultArray['id'] ?>">View Post</a>
       </div>
     </div>
   <?php } ?>
