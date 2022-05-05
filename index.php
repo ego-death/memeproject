@@ -2,6 +2,8 @@
     echo '<pre>';
     var_dump ($_SESSION);
     echo '</pre>';
+    echo "random stuff";
+    echo "another random thing";
 ?>
 
 <div class="container">
