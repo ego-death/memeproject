@@ -2,6 +2,7 @@
     echo '<pre>';
     var_dump ($_SESSION);
     echo '</pre>';
+    echo "random stuff";
 ?>
 
 <div class="container">
